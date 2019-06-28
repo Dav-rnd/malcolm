@@ -1,0 +1,74 @@
+# Training config IDs and corresponding training hyper-parameters
+# An empy list of features denotes the use of all features
+
+sklearn_rf:
+  features: []
+  target: label
+  algo: SklearnRandomForest
+  hyperparameters:
+    n_estimators: 1000
+    max_depth: 10
+    random_state: 42
+    verbose: 1
+    n_jobs: -1
+    class_weight: balanced
+
+sklearn_svm:
+  features: []
+  target: label
+  algo: SklearnSVM
+  hyperparameters:
+    C: 1.0
+    kernel: rbf
+    degree: 3
+    probability: True
+
+h2o_rf:
+  features: []
+  target: label
+  algo: H2ORandomForest
+  # binomial_double_trees and calibrate_model automatically filled
+  hyperparameters:
+    nfolds: 4
+    fold_assignment: 'Stratified'
+    stopping_metric: 'logloss'
+    stopping_rounds: 3
+    stopping_tolerance: 0.001
+    ntrees: 125
+    mtries: -1
+    col_sample_rate_per_tree: 0.8
+    nbins: 40
+    max_depth: 15
+    keep_cross_validation_predictions: True
+    seed: 42
+
+h2o_gbm:
+  features: []
+  target: label
+  algo: H2OGradientBoosting
+  hyperparameters:
+
+aws_xgb:
+  features: []
+  target: label
+  algo: AWSXGBoost
+  # objective and num_classes automatically filled if not given
+  hyperparameters:
+    alpha: 0.06844204101730433
+    eta: 0.35840167237839293
+    eval_metric: 'merror'  # automatically switched to 'auc' for binary classification
+    max_depth: 5
+    min_child_weight: 5.1961718289333705
+    num_round: 100
+    rate_drop: 0.3
+    tweedie_variance_power: 1.4
+
+aws_linear:
+  features: []
+  target: label
+  algo: AWSLinear
+  # num_classes and predictor_type automatically filled if not given
+  hyperparameters:
+    accuracy_top_k: 3
+    balance_multiclass_weights: False
+    epochs: 15

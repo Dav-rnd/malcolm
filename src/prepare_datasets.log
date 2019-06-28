@@ -1,0 +1,171 @@
+2019-04-26 16:36:07,161:INFO:prepare_datasets.py:prepare_datasets:47: Loading raw dataset...
+2019-04-26 16:36:07,161:INFO:load_dataset.py:load_csv:89: Loading from csv: /home/drenaudie/data/convlab/working_dir/sessions20190404first100k.csv...
+2019-04-26 16:36:09,755:INFO:save_datasets.py:save_datasets_to_h5:37: saving h5 to: /home/drenaudie/data/convlab/working_dir/sessions20190404first100k.h5
+2019-04-26 16:36:09,885:INFO:save_datasets.py:save_datasets_to_h5:41:   saving dataframe: sessions20190404first100k...
+/home/drenaudie/dev/convlab/malic/src/load_dataset.py:35: PerformanceWarning: 
+your performance may suffer as PyTables will pickle object types that it cannot
+map directly to c-types [inferred_type->mixed,key->block3_values] [items->['individual', 'cabin', 'session_id', 'country', 'mobile', 'browser_name', 'platform', 'currency', 'od', 'origin', 'destination', 'origin_country', 'destination_country', 'airlines', 'flights', 'itinerary', 'main_airline', 'solution_id']]
+
+  save_datasets_to_h5({dataset_name: frame}, local_filename_h5)
+2019-04-26 16:36:10,727:INFO:save_datasets.py:save_datasets_to_h5:43: saving h5 done.
+2019-04-26 16:36:10,727:INFO:utils.py:timing:18: TIMING: loading data: 3565 ms.
+2019-04-26 16:36:10,727:INFO:prepare_datasets.py:prepare_datasets:52: Pre-processing...
+2019-04-26 16:36:10,896:INFO:preprocessing.py:rows_filtering:111: filtering out 'no choice' alternatives
+2019-04-26 16:36:11,264:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_df
+2019-04-26 16:36:11,264:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 97106 ; initial: 100000 ; difference: 2894
+2019-04-26 16:36:11,264:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00102 ; initial: 0.02894 ; difference: 0.02792
+2019-04-26 16:36:11,264:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03453 ; initial: 0.03453 ; difference: 0.00000
+2019-04-26 16:36:11,264:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2896 ; initial: 2896 ; difference: 0
+2019-04-26 16:36:11,264:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:11,264:INFO:preprocessing.py:rows_filtering:122: filtering out cheapest time ratio == 0.0
+2019-04-26 16:36:11,631:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_df
+2019-04-26 16:36:11,631:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 97106 ; initial: 97106 ; difference: 0
+2019-04-26 16:36:11,631:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00102 ; initial: 0.00102 ; difference: 0.00000
+2019-04-26 16:36:11,631:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03453 ; initial: 0.03453 ; difference: 0.00000
+2019-04-26 16:36:11,631:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2896 ; initial: 2896 ; difference: 0
+2019-04-26 16:36:11,631:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:11,635:INFO:preprocessing.py:rows_filtering:125: filtering out fastest price ratio == 0.0
+2019-04-26 16:36:11,963:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_df
+2019-04-26 16:36:11,963:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 97106 ; initial: 97106 ; difference: 0
+2019-04-26 16:36:11,963:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00102 ; initial: 0.00102 ; difference: 0.00000
+2019-04-26 16:36:11,963:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03453 ; initial: 0.03453 ; difference: 0.00000
+2019-04-26 16:36:11,963:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2896 ; initial: 2896 ; difference: 0
+2019-04-26 16:36:11,963:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:11,970:INFO:preprocessing.py:rows_filtering:128: filtering out nseats == 0
+2019-04-26 16:36:12,338:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_df
+2019-04-26 16:36:12,338:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 97096 ; initial: 97106 ; difference: 10
+2019-04-26 16:36:12,338:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00102 ; initial: 0.00102 ; difference: -0.00000
+2019-04-26 16:36:12,338:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03454 ; initial: 0.03453 ; difference: -0.00001
+2019-04-26 16:36:12,339:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2895 ; initial: 2896 ; difference: 1
+2019-04-26 16:36:12,339:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:12,343:INFO:preprocessing.py:rows_filtering:131: filtering out currency unknown
+2019-04-26 16:36:12,683:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_df
+2019-04-26 16:36:12,683:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 96201 ; initial: 97096 ; difference: 895
+2019-04-26 16:36:12,683:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00102 ; initial: 0.00102 ; difference: 0.00000
+2019-04-26 16:36:12,683:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03443 ; initial: 0.03454 ; difference: 0.00011
+2019-04-26 16:36:12,683:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2875 ; initial: 2895 ; difference: 20
+2019-04-26 16:36:12,683:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:12,691:INFO:preprocessing.py:feature_dropping:141: removing features: ['no_choice_alternative', 'itinerary', 'n_dominated_price', 'n_dominated_time', 'n_dominated_or', 'n_dominated_and', 'solution_id']
+2019-04-26 16:36:12,738:INFO:preprocessing.py:feature_values_fixing:152: remaining browser names: [nan 'Chrome' 'Safari' 'Firefox' 'Opera']
+2019-04-26 16:36:12,762:INFO:preprocessing.py:feature_values_fixing:160: remaining platform names: [nan 'MacIntel' 'iPad' 'Win64' 'Win32' 'iPhone' 'Linux']
+2019-04-26 16:36:12,915:INFO:preprocessing.py:filter_out_extreme_values_iqr:367: Filtering extreme values for price_ratio
+2019-04-26 16:36:12,917:INFO:preprocessing.py:filter_out_extreme_values_iqr:373: q1: 1.11 / q3: 2.09 / lower: -0.35 / higher: 3.55
+2019-04-26 16:36:13,069:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_out_extreme_values_iqr
+2019-04-26 16:36:13,069:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 86286 ; initial: 96201 ; difference: 9915
+2019-04-26 16:36:13,069:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00114 ; initial: 0.00102 ; difference: -0.00012
+2019-04-26 16:36:13,069:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03443 ; initial: 0.03443 ; difference: 0.00000
+2019-04-26 16:36:13,069:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2875 ; initial: 2875 ; difference: 0
+2019-04-26 16:36:13,069:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:13,208:INFO:preprocessing.py:filter_out_extreme_values_iqr:367: Filtering extreme values for nflights
+2019-04-26 16:36:13,210:INFO:preprocessing.py:filter_out_extreme_values_iqr:373: q1: 2.00 / q3: 4.00 / lower: -1.00 / higher: 7.00
+2019-04-26 16:36:13,377:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_out_extreme_values_iqr
+2019-04-26 16:36:13,377:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 86102 ; initial: 86286 ; difference: 184
+2019-04-26 16:36:13,377:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00114 ; initial: 0.00114 ; difference: -0.00000
+2019-04-26 16:36:13,377:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03445 ; initial: 0.03443 ; difference: -0.00001
+2019-04-26 16:36:13,377:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2874 ; initial: 2875 ; difference: 1
+2019-04-26 16:36:13,377:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1447 ; initial: 1447 ; difference: 0
+2019-04-26 16:36:13,503:INFO:preprocessing.py:filter_out_extreme_values_iqr:367: Filtering extreme values for nb_airlines
+2019-04-26 16:36:13,505:INFO:preprocessing.py:filter_out_extreme_values_iqr:373: q1: 1.00 / q3: 4.00 / lower: -3.50 / higher: 8.50
+2019-04-26 16:36:13,642:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_out_extreme_values_iqr
+2019-04-26 16:36:13,642:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 81780 ; initial: 86102 ; difference: 4322
+2019-04-26 16:36:13,642:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00115 ; initial: 0.00114 ; difference: -0.00001
+2019-04-26 16:36:13,642:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03441 ; initial: 0.03445 ; difference: 0.00004
+2019-04-26 16:36:13,642:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2761 ; initial: 2874 ; difference: 113
+2019-04-26 16:36:13,642:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1401 ; initial: 1447 ; difference: 46
+2019-04-26 16:36:13,767:INFO:preprocessing.py:filter_out_extreme_values_iqr:367: Filtering extreme values for session_batches
+2019-04-26 16:36:13,769:INFO:preprocessing.py:filter_out_extreme_values_iqr:373: q1: 3.00 / q3: 7.00 / lower: -3.00 / higher: 13.00
+2019-04-26 16:36:13,899:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_out_extreme_values_iqr
+2019-04-26 16:36:13,899:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 77272 ; initial: 81780 ; difference: 4508
+2019-04-26 16:36:13,899:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00122 ; initial: 0.00115 ; difference: -0.00007
+2019-04-26 16:36:13,899:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03494 ; initial: 0.03441 ; difference: -0.00053
+2019-04-26 16:36:13,899:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2719 ; initial: 2761 ; difference: 42
+2019-04-26 16:36:13,899:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1386 ; initial: 1401 ; difference: 15
+2019-04-26 16:36:14,010:INFO:preprocessing.py:filter_out_extreme_values_iqr:367: Filtering extreme values for totalTripDurationMinutes
+2019-04-26 16:36:14,012:INFO:preprocessing.py:filter_out_extreme_values_iqr:373: q1: 0.40 / q3: 1.33 / lower: -0.99 / higher: 2.73
+2019-04-26 16:36:14,145:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_out_extreme_values_iqr
+2019-04-26 16:36:14,145:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 75811 ; initial: 77272 ; difference: 1461
+2019-04-26 16:36:14,145:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00124 ; initial: 0.00122 ; difference: -0.00002
+2019-04-26 16:36:14,145:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03506 ; initial: 0.03494 ; difference: -0.00012
+2019-04-26 16:36:14,145:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2710 ; initial: 2719 ; difference: 9
+2019-04-26 16:36:14,145:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1382 ; initial: 1386 ; difference: 4
+2019-04-26 16:36:14,255:INFO:preprocessing.py:filter_out_extreme_values_iqr:367: Filtering extreme values for n_alternatives
+2019-04-26 16:36:14,257:INFO:preprocessing.py:filter_out_extreme_values_iqr:373: q1: 31.00 / q3: 65.00 / lower: -20.00 / higher: 116.00
+2019-04-26 16:36:14,379:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function filter_out_extreme_values_iqr
+2019-04-26 16:36:14,379:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 71311 ; initial: 75811 ; difference: 4500
+2019-04-26 16:36:14,379:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00132 ; initial: 0.00124 ; difference: -0.00008
+2019-04-26 16:36:14,379:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03573 ; initial: 0.03506 ; difference: -0.00067
+2019-04-26 16:36:14,379:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2659 ; initial: 2710 ; difference: 51
+2019-04-26 16:36:14,379:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1359 ; initial: 1382 ; difference: 23
+2019-04-26 16:36:14,476:INFO:preprocessing.py:remove_suspicious_session_ids:408: filtering out session_id with more than 60 searches
+2019-04-26 16:36:14,597:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function remove_suspicious_session_ids
+2019-04-26 16:36:14,597:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 71311 ; initial: 71311 ; difference: 0
+2019-04-26 16:36:14,597:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00132 ; initial: 0.00132 ; difference: 0.00000
+2019-04-26 16:36:14,597:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03573 ; initial: 0.03573 ; difference: 0.00000
+2019-04-26 16:36:14,597:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2659 ; initial: 2659 ; difference: 0
+2019-04-26 16:36:14,597:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1359 ; initial: 1359 ; difference: 0
+2019-04-26 16:36:14,626:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for mobile: False. Replaced 309 missing values.
+2019-04-26 16:36:14,636:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for browser_name: Chrome. Replaced 309 missing values.
+2019-04-26 16:36:14,647:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for platform: Win32. Replaced 309 missing values.
+2019-04-26 16:36:14,657:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for country: France. Replaced 4951 missing values.
+2019-04-26 16:36:14,669:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for origin_country: FR. Replaced 0 missing values.
+2019-04-26 16:36:14,679:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for destination_country: ES. Replaced 0 missing values.
+2019-04-26 16:36:14,698:INFO:preprocessing.py:imputation_missing_values_by_mode:293: Most frequent value for currency: EUR. Replaced 0 missing values.
+2019-04-26 16:36:14,736:INFO:preprocessing.py:feature_engineering:305: computing domination-related features
+2019-04-26 16:36:14,741:INFO:preprocessing.py:feature_engineering:312: computing user-related features
+2019-04-26 16:36:14,741:INFO:preprocessing.py:add_user_features:225: computing: departure_date
+2019-04-26 16:36:17,447:INFO:preprocessing.py:add_user_features:227: computing: return_date
+2019-04-26 16:36:20,926:INFO:preprocessing.py:add_user_features:229: computing: trip_date
+2019-04-26 16:36:22,745:INFO:preprocessing.py:add_user_features:231: computing: od_and_trip_dates
+2019-04-26 16:36:24,582:INFO:preprocessing.py:add_user_features:233: computing: od_country
+2019-04-26 16:36:26,478:INFO:preprocessing.py:add_user_features:235: computing: od_country_and_trip_dates
+2019-04-26 16:36:28,416:INFO:preprocessing.py:add_user_features:237: computing: user_conversion_rate
+2019-04-26 16:36:30,323:INFO:preprocessing.py:add_user_features:239: dropping duplicates
+2019-04-26 16:36:30,342:INFO:preprocessing.py:add_user_features:241: computing: same_od
+2019-04-26 16:36:30,386:INFO:preprocessing.py:add_user_features:244: computing: same_origin
+2019-04-26 16:36:30,415:INFO:preprocessing.py:add_user_features:247: computing: same_origin_country
+2019-04-26 16:36:30,445:INFO:preprocessing.py:add_user_features:250: computing: same_destination
+2019-04-26 16:36:30,476:INFO:preprocessing.py:add_user_features:253: computing: same_destination_country
+2019-04-26 16:36:30,506:INFO:preprocessing.py:add_user_features:256: computing: same_od_country
+2019-04-26 16:36:30,538:INFO:preprocessing.py:add_user_features:259: computing: same_departure_date
+2019-04-26 16:36:30,570:INFO:preprocessing.py:add_user_features:262: computing: same_return_date
+2019-04-26 16:36:30,603:INFO:preprocessing.py:add_user_features:265: computing: same_trip_dates
+2019-04-26 16:36:30,636:INFO:preprocessing.py:add_user_features:268: computing: same_od_and_trip_dates
+2019-04-26 16:36:30,669:INFO:preprocessing.py:add_user_features:271: computing: same_od_country_and_trip_dates
+2019-04-26 16:36:30,702:INFO:preprocessing.py:add_user_features:281: normalizing the counts...
+2019-04-26 16:36:30,719:INFO:preprocessing.py:feature_renaming:184: renaming: ['choice', 'isInterline', 'nseats', 'n_adults', 'n_children', 'n_infants', 'nflights', 'n_alternatives', 'n_choices', 'mobile', 'totalPrice', 'totalTripDurationMinutes', 'departureTime', 'arrivalTime']
+2019-04-26 16:36:30,915:INFO:preprocessing.py:log_conversion_metrics_and_call:49: modifications statistics of function pre_process
+2019-04-26 16:36:30,915:INFO:preprocessing.py:log_conversion_metrics_and_call:51: final frame length : 71311 ; initial: 100000 ; difference: 28689
+2019-04-26 16:36:30,915:INFO:preprocessing.py:log_conversion_metrics_and_call:55: final conversion rate at alternative level : 0.00132 ; initial: 0.02894 ; difference: 0.02762
+2019-04-26 16:36:30,915:INFO:preprocessing.py:log_conversion_metrics_and_call:59: final conversion rate at session level : 0.03573 ; initial: 0.03453 ; difference: -0.00120
+2019-04-26 16:36:30,915:INFO:preprocessing.py:log_conversion_metrics_and_call:61: final number of individuals : 2659 ; initial: 2896 ; difference: 237
+2019-04-26 16:36:30,915:INFO:preprocessing.py:log_conversion_metrics_and_call:63: final number of sessions : 1359 ; initial: 1447 ; difference: 88
+2019-04-26 16:36:30,924:INFO:utils.py:timing:18: TIMING: pre-processing: 20197 ms.
+2019-04-26 16:36:30,924:INFO:prepare_datasets.py:prepare_datasets:57: Splitting alt-level dataset...
+2019-04-26 16:36:30,925:INFO:split_datasets.py:split_datasets:22: global rate: 0.001318 --- size: 71311
+2019-04-26 16:36:30,949:INFO:split_datasets.py:split_datasets:45: alt_train rate: 0.001496 --- size: 42780
+2019-04-26 16:36:30,959:INFO:split_datasets.py:split_datasets:45: alt_valid rate: 0.000994 --- size: 14082
+2019-04-26 16:36:30,968:INFO:split_datasets.py:split_datasets:45: alt_test rate: 0.001107 --- size: 14449
+2019-04-26 16:36:30,968:INFO:utils.py:timing:18: TIMING: splitting alt-level: 45 ms.
+2019-04-26 16:36:30,968:INFO:prepare_datasets.py:prepare_datasets:64: Saving alt-level datasets...
+2019-04-26 16:36:30,968:INFO:save_datasets.py:save_datasets_to_h5:37: saving h5 to: /home/drenaudie/data/convlab/working_dir/sessions20190404first100k_preprocessed_alt.h5
+2019-04-26 16:36:30,969:INFO:save_datasets.py:save_datasets_to_h5:41:   saving dataframe: alt_train...
+2019-04-26 16:36:31,399:INFO:save_datasets.py:save_datasets_to_h5:41:   saving dataframe: alt_valid...
+2019-04-26 16:36:31,507:INFO:save_datasets.py:save_datasets_to_h5:41:   saving dataframe: alt_test...
+2019-04-26 16:36:31,795:INFO:save_datasets.py:save_datasets_to_h5:43: saving h5 done.
+2019-04-26 16:36:31,796:INFO:save_datasets.py:upload_file_to_s3:47: uploading to s3: retrics-sagemaker:data/preprocessed/sessions20190404first100k_preprocessed_alt.h5...
+2019-04-26 16:36:34,932:INFO:save_datasets.py:upload_file_to_s3:50: uploading done.
+2019-04-26 16:36:34,932:INFO:utils.py:timing:18: TIMING: saving alt-level: 3964 ms.
+2019-04-26 16:36:34,932:INFO:prepare_datasets.py:prepare_datasets:70: Splitting sess-level dataset...
+2019-04-26 16:36:34,935:INFO:split_datasets.py:split_datasets:22: global rate: 0.000994 --- size: 14082
+2019-04-26 16:36:34,952:INFO:split_datasets.py:split_datasets:45: session_train rate: 0.000947 --- size: 10559
+2019-04-26 16:36:34,960:INFO:split_datasets.py:split_datasets:45: session_valid rate: 0.001135 --- size: 3523
+2019-04-26 16:36:34,960:INFO:utils.py:timing:18: TIMING: splitting sess-level: 28 ms.
+2019-04-26 16:36:34,960:INFO:prepare_datasets.py:prepare_datasets:77: Saving sess-level dataset...
+2019-04-26 16:36:34,960:INFO:save_datasets.py:save_datasets_to_h5:37: saving h5 to: /home/drenaudie/data/convlab/working_dir/sessions20190404first100k_preprocessed_sess.h5
+2019-04-26 16:36:34,962:INFO:save_datasets.py:save_datasets_to_h5:41:   saving dataframe: session_train...
+2019-04-26 16:36:35,036:INFO:save_datasets.py:save_datasets_to_h5:41:   saving dataframe: session_valid...
+2019-04-26 16:36:35,145:INFO:save_datasets.py:save_datasets_to_h5:43: saving h5 done.
+2019-04-26 16:36:35,146:INFO:save_datasets.py:upload_file_to_s3:47: uploading to s3: retrics-sagemaker:data/preprocessed/sessions20190404first100k_preprocessed_sess.h5...
+2019-04-26 16:36:36,242:INFO:save_datasets.py:upload_file_to_s3:50: uploading done.
+2019-04-26 16:36:36,244:INFO:utils.py:timing:18: TIMING: saving sess-level: 1284 ms.
+2019-04-26 16:36:36,244:INFO:utils.py:timing:18: TIMING: total time: 29083 ms.

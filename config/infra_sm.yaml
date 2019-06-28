@@ -1,0 +1,16 @@
+# SageMaker Infrastructure
+
+sm_dev:
+  sm_role: 'ENTER_YOUR_SAGEMAKER_IAM_ROLE_ARN_HERE'
+  train_instance_type: 'ml.m4.xlarge'
+  train_instance_count: 1
+  bt_instance_type: 'ml.m4.xlarge' 
+  deploy_instance_type: 'ml.t2.medium'
+  maxruntime: 86400
+
+sm_prod:
+  sm_role: 'ENTER_YOUR_SAGEMAKER_IAM_ROLE_ARN_HERE'
+  train_instance_type: 'ml.m4.xlarge'
+  train_instance_count: 1
+  bt_instance_type: 'ml.c4.xlarge'
+  deploy_instance_type: 'ml.t2.large'

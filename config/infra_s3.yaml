@@ -1,0 +1,13 @@
+# AWS S3 Infrastructure
+
+s3_dev:
+  s3_bucket: ENTER_YOUR_S3_BUCKET_NAME_HERE
+  s3_folder_data: data/preprocessed
+  s3_folder_ml: data/ml
+  s3_folder_models: models
+
+s3_prod:
+  s3_bucket: ENTER_YOUR_S3_BUCKET_NAME_HERE
+  s3_folder_data: data/preprocessed
+  s3_folder_ml: data/ml
+  s3_folder_models: models

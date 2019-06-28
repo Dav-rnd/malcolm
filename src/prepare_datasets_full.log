@@ -1,0 +1,88 @@
+drenaudie@nceinrlnx02:~/projects/conversion-lab/dev/malic/src (master)$ python prepare_datasets.py -f ~/data/conversion_sessions_20190319.csv -o ~/data -n conversion_sessions_20190319_preprocessed --sess -s3b retrics-sagemaker -s3f data/preprocessed
+2019-04-03 15:11:16,062:INFO:prepare_datasets.py:prepare_datasets:43: Loading input csv...
+2019-04-03 15:14:39,820:INFO:prepare_datasets.py:timing:85: TIMING: loading data: 203758 ms.
+2019-04-03 15:14:39,820:INFO:prepare_datasets.py:prepare_datasets:51: Pre-processing...
+2019-04-03 15:14:39,820:INFO:preprocessing.py:rows_filtering:65: filtering out 'no choice' alternatives
+2019-04-03 15:14:39,884:INFO:preprocessing.py:filter_df:53: BEFORE : nb_lines: 8646340 / nb_conv: 237744
+2019-04-03 15:14:44,079:INFO:preprocessing.py:filter_df:57: AFTER  : nb_lines: 8404878 / nb_conv: 10659
+2019-04-03 15:14:44,079:INFO:preprocessing.py:filter_df:59: REMOVED: nb_lines: 241462 / nb_conv: 227085
+2019-04-03 15:14:44,079:INFO:preprocessing.py:rows_filtering:76: filtering out nseats == 0
+2019-04-03 15:14:44,142:INFO:preprocessing.py:filter_df:53: BEFORE : nb_lines: 8404878 / nb_conv: 10659
+2019-04-03 15:14:47,260:INFO:preprocessing.py:filter_df:57: AFTER  : nb_lines: 7348577 / nb_conv: 9201
+2019-04-03 15:14:47,260:INFO:preprocessing.py:filter_df:59: REMOVED: nb_lines: 1056301 / nb_conv: 1458
+2019-04-03 15:14:47,944:INFO:preprocessing.py:rows_filtering:79: filtering out currency unknown
+2019-04-03 15:14:47,998:INFO:preprocessing.py:filter_df:53: BEFORE : nb_lines: 7348577 / nb_conv: 9201
+2019-04-03 15:14:51,190:INFO:preprocessing.py:filter_df:57: AFTER  : nb_lines: 7308199 / nb_conv: 9166
+2019-04-03 15:14:51,190:INFO:preprocessing.py:filter_df:59: REMOVED: nb_lines: 40378 / nb_conv: 35
+2019-04-03 15:14:51,764:INFO:preprocessing.py:feature_dropping:87: removing features: ['no_choice_alternative', 'itinerary', 'n_dominated_price', 'n_dominated_time', 'n_dominated_or', 'n_dominated_and']
+2019-04-03 15:14:56,232:INFO:preprocessing.py:feature_values_fixing:97: remaining browser names: [nan 'Chrome' 'Safari' 'Firefox' 'Opera' 'IE']
+2019-04-03 15:14:58,008:INFO:preprocessing.py:feature_values_fixing:105: remaining platform names: [nan 'MacIntel' 'iPad' 'Win64' 'Win32' 'iPhone' 'Linux']
+2019-04-03 15:14:59,606:INFO:preprocessing.py:filter_out_extreme_values_iqr:298: Filtering extreme values for price_ratio
+2019-04-03 15:14:59,764:INFO:preprocessing.py:filter_out_extreme_values_iqr:304: q1: 1.12 / q3: 2.02 / lower: -0.22 / higher: 3.36
+2019-04-03 15:15:02,441:INFO:preprocessing.py:filter_out_extreme_values_iqr:309: BEFORE : nb_lines: 7308199 / nb_conv: 9166.0
+2019-04-03 15:15:02,487:INFO:preprocessing.py:filter_out_extreme_values_iqr:312: AFTER  : nb_lines: 6540754 / nb_conv: 9008.0
+2019-04-03 15:15:02,487:INFO:preprocessing.py:filter_out_extreme_values_iqr:314: REMOVED: nb_lines: 767445 / nb_conv: 158.0
+2019-04-03 15:15:02,490:INFO:preprocessing.py:filter_out_extreme_values_iqr:298: Filtering extreme values for nflights
+2019-04-03 15:15:02,612:INFO:preprocessing.py:filter_out_extreme_values_iqr:304: q1: 2.00 / q3: 4.00 / lower: -1.00 / higher: 7.00
+2019-04-03 15:15:05,219:INFO:preprocessing.py:filter_out_extreme_values_iqr:309: BEFORE : nb_lines: 6540754 / nb_conv: 9008.0
+2019-04-03 15:15:05,267:INFO:preprocessing.py:filter_out_extreme_values_iqr:312: AFTER  : nb_lines: 6536985 / nb_conv: 9008.0
+2019-04-03 15:15:05,267:INFO:preprocessing.py:filter_out_extreme_values_iqr:314: REMOVED: nb_lines: 3769 / nb_conv: 0.0
+2019-04-03 15:15:05,818:INFO:preprocessing.py:filter_out_extreme_values_iqr:298: Filtering extreme values for nb_airlines
+2019-04-03 15:15:05,928:INFO:preprocessing.py:filter_out_extreme_values_iqr:304: q1: 1.00 / q3: 4.00 / lower: -3.50 / higher: 8.50
+2019-04-03 15:15:08,446:INFO:preprocessing.py:filter_out_extreme_values_iqr:309: BEFORE : nb_lines: 6536985 / nb_conv: 9008.0
+2019-04-03 15:15:08,489:INFO:preprocessing.py:filter_out_extreme_values_iqr:312: AFTER  : nb_lines: 6211359 / nb_conv: 8564.0
+2019-04-03 15:15:08,489:INFO:preprocessing.py:filter_out_extreme_values_iqr:314: REMOVED: nb_lines: 325626 / nb_conv: 444.0
+2019-04-03 15:15:09,012:INFO:preprocessing.py:filter_out_extreme_values_iqr:298: Filtering extreme values for session_batches
+2019-04-03 15:15:09,124:INFO:preprocessing.py:filter_out_extreme_values_iqr:304: q1: 3.00 / q3: 6.00 / lower: -1.50 / higher: 10.50
+2019-04-03 15:15:11,361:INFO:preprocessing.py:filter_out_extreme_values_iqr:309: BEFORE : nb_lines: 6211359 / nb_conv: 8564.0
+2019-04-03 15:15:11,402:INFO:preprocessing.py:filter_out_extreme_values_iqr:312: AFTER  : nb_lines: 5618515 / nb_conv: 8299.0
+2019-04-03 15:15:11,402:INFO:preprocessing.py:filter_out_extreme_values_iqr:314: REMOVED: nb_lines: 592844 / nb_conv: 265.0
+2019-04-03 15:15:11,923:INFO:preprocessing.py:filter_out_extreme_values_iqr:298: Filtering extreme values for totalTripDurationMinutes
+2019-04-03 15:15:12,064:INFO:preprocessing.py:filter_out_extreme_values_iqr:304: q1: 0.42 / q3: 1.39 / lower: -1.04 / higher: 2.85
+2019-04-03 15:15:14,292:INFO:preprocessing.py:filter_out_extreme_values_iqr:309: BEFORE : nb_lines: 5618515 / nb_conv: 8299.0
+2019-04-03 15:15:14,333:INFO:preprocessing.py:filter_out_extreme_values_iqr:312: AFTER  : nb_lines: 5515189 / nb_conv: 8278.0
+2019-04-03 15:15:14,334:INFO:preprocessing.py:filter_out_extreme_values_iqr:314: REMOVED: nb_lines: 103326 / nb_conv: 21.0
+2019-04-03 15:15:14,785:INFO:preprocessing.py:filter_out_extreme_values_iqr:298: Filtering extreme values for n_alternatives
+2019-04-03 15:15:14,888:INFO:preprocessing.py:filter_out_extreme_values_iqr:304: q1: 30.00 / q3: 60.00 / lower: -15.00 / higher: 105.00
+2019-04-03 15:15:16,972:INFO:preprocessing.py:filter_out_extreme_values_iqr:309: BEFORE : nb_lines: 5515189 / nb_conv: 8278.0
+2019-04-03 15:15:17,010:INFO:preprocessing.py:filter_out_extreme_values_iqr:312: AFTER  : nb_lines: 5216246 / nb_conv: 8114.0
+2019-04-03 15:15:17,010:INFO:preprocessing.py:filter_out_extreme_values_iqr:314: REMOVED: nb_lines: 298943 / nb_conv: 164.0
+2019-04-03 15:36:39,780:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for mobile: False. Replaced 15949 missing values.
+2019-04-03 15:36:40,539:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for browser_name: Chrome. Replaced 15949 missing values.
+2019-04-03 15:36:41,291:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for platform: Win32. Replaced 15949 missing values.
+2019-04-03 15:36:41,918:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for country: France. Replaced 1714016 missing values.
+2019-04-03 15:36:42,708:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for origin_country: FR. Replaced 936 missing values.
+2019-04-03 15:36:43,505:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for destination_country: US. Replaced 4075 missing values.
+2019-04-03 15:36:44,573:INFO:preprocessing.py:imputation_missing_values_by_mode:228: Most frequent value for currency: EUR. Replaced 12 missing values.
+2019-04-03 15:37:02,123:INFO:preprocessing.py:pre_process:31: final conversion rate at alternative level: 0.00156
+2019-04-03 15:37:21,575:INFO:preprocessing.py:pre_process:34: final conversion rate at session level: 0.04236
+2019-04-03 15:37:22,422:INFO:prepare_datasets.py:timing:85: TIMING: pre-processing: 1362603 ms.
+2019-04-03 15:37:22,422:INFO:prepare_datasets.py:prepare_datasets:56: Splitting alt-level dataset...
+2019-04-03 15:37:22,474:INFO:split_datasets.py:split_datasets:22: global rate: 0.001556 --- size: 5216246
+2019-04-03 15:37:26,001:INFO:split_datasets.py:split_datasets:45: alt_train rate: 0.001556 --- size: 5216246
+2019-04-03 15:37:29,054:INFO:split_datasets.py:split_datasets:45: alt_valid rate: 0.001556 --- size: 5216246
+2019-04-03 15:37:30,025:INFO:split_datasets.py:split_datasets:45: alt_test rate: 0.001568 --- size: 1044462
+2019-04-03 15:37:30,030:INFO:prepare_datasets.py:timing:85: TIMING: splitting alt-level: 7608 ms.
+2019-04-03 15:37:30,030:INFO:prepare_datasets.py:prepare_datasets:63: Saving alt-level datasets...
+2019-04-03 15:37:30,030:INFO:save_datasets.py:save_datasets_to_h5:36: saving to: /remote/users/drenaudie/data/conversion_sessions_20190319_preprocessed_alt.h5
+2019-04-03 15:37:30,167:INFO:save_datasets.py:save_datasets_to_h5:40: saving dataframe: alt_train...
+2019-04-03 15:38:19,593:INFO:save_datasets.py:save_datasets_to_h5:40: saving dataframe: alt_valid...
+2019-04-03 15:39:10,516:INFO:save_datasets.py:save_datasets_to_h5:40: saving dataframe: alt_test...
+2019-04-03 15:39:19,212:INFO:save_datasets.py:save_datasets_to_h5:42: saving to h5 done.
+2019-04-03 15:39:19,212:INFO:save_datasets.py:save_file_to_s3:48: uploading to s3: retrics-sagemaker:data/preprocessed/conversion_sessions_20190319_preprocessed_alt.h5...
+2019-04-03 15:42:14,979:INFO:save_datasets.py:save_file_to_s3:51: uploading done.
+2019-04-03 15:42:14,979:INFO:prepare_datasets.py:timing:85: TIMING: saving alt-level: 284949 ms.
+2019-04-03 15:42:14,979:INFO:prepare_datasets.py:prepare_datasets:69: Splitting sess-level dataset...
+2019-04-03 15:42:15,053:INFO:split_datasets.py:split_datasets:22: global rate: 0.001556 --- size: 5216246
+2019-04-03 15:42:19,832:INFO:split_datasets.py:split_datasets:45: session_train rate: 0.001556 --- size: 5216246
+2019-04-03 15:42:21,226:INFO:split_datasets.py:split_datasets:45: session_valid rate: 0.001554 --- size: 1305576
+2019-04-03 15:42:21,232:INFO:prepare_datasets.py:timing:85: TIMING: splitting sess-level: 6253 ms.
+2019-04-03 15:42:21,232:INFO:prepare_datasets.py:prepare_datasets:76: Saving sess-level dataset...
+2019-04-03 15:42:21,232:INFO:save_datasets.py:save_datasets_to_h5:36: saving to: /remote/users/drenaudie/data/conversion_sessions_20190319_preprocessed_sess.h5
+2019-04-03 15:42:21,238:INFO:save_datasets.py:save_datasets_to_h5:40: saving dataframe: session_train...
+2019-04-03 15:43:11,558:INFO:save_datasets.py:save_datasets_to_h5:40: saving dataframe: session_valid...
+2019-04-03 15:43:24,899:INFO:save_datasets.py:save_datasets_to_h5:42: saving to h5 done.
+2019-04-03 15:43:24,899:INFO:save_datasets.py:save_file_to_s3:48: uploading to s3: retrics-sagemaker:data/preprocessed/conversion_sessions_20190319_preprocessed_sess.h5...
+2019-04-03 15:45:27,111:INFO:save_datasets.py:save_file_to_s3:51: uploading done.
+2019-04-03 15:45:27,111:INFO:prepare_datasets.py:timing:85: TIMING: saving sess-level: 185879 ms.
+2019-04-03 15:45:27,111:INFO:prepare_datasets.py:timing:85: TIMING: total time: 2051049 ms.
