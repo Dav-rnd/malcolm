@@ -72,3 +72,13 @@ aws_linear:
     accuracy_top_k: 3
     balance_multiclass_weights: False
     epochs: 15
+
+
+# maybe we shouldn't do that (it was just faster here). Instead, we could add fields to sklearn_* configs
+# i.e. a boolean to deploy for sklearn models + additional import field (string) if deployed
+aws_sklearn:
+  features: []
+  target: label
+  algo: AWSSklearn
+  # num_classes and predictor_type automatically filled if not given
+  hyperparameters:

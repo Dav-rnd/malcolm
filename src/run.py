@@ -79,15 +79,15 @@ def train_level_model(train_args) -> None:
     # initializing model object
     logging.info('Initializing model object...')
 
-    if 'sklearn' in algo.lower():
-        model = eval(algo)(train_args.dataset_name, hyperparameters, infra_s3, features, target,
-                           train_args.data_folder, training_job_dir, train_args.clean, train_args.model_id)
-    elif 'aws' in algo.lower():
+    if 'aws' in algo.lower():
         if infra_s3 is None or infra_sm is None:
             raise ValueError('Parameters --infra-s3 and --infra-sm are required for SageMaker algorithms')
         model = eval(algo)(train_args.dataset_name, hyperparameters, infra_s3, infra_sm, features, target,
                            train_args.data_folder, training_job_common_dir, training_job_dir, train_args.model_id,
                            train_args.clean)
+    elif 'sklearn' in algo.lower():
+        model = eval(algo)(train_args.dataset_name, hyperparameters, infra_s3, features, target,
+                           train_args.data_folder, training_job_dir, train_args.clean, train_args.model_id)
     elif 'h2o' in algo.lower():
         model = eval(algo)(train_args.dataset_name, hyperparameters, infra_s3, features, target, train_args.h2o,
                            train_args.data_folder, training_job_dir, train_args.clean, train_args.model_id)

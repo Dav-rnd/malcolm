@@ -2,18 +2,14 @@
 # AWS LINEAR LEARNER SCRIPT
 # (C) Remi Domingues 2019
 # *********************************************************
-import os
-import logging
 import sagemaker
-import pandas as pd
 from typing import Dict, List
-from sagemaker.amazon.amazon_estimator import get_image_uri
+from sagemaker.sklearn.estimator import SKLearn
 
 from models.aws.aws_model import AWSModel
-from save_datasets import upload_file_to_s3
 
 
-class AWSLinear(AWSModel):
+class AWSSklearn(AWSModel):
     """
     Linear learner with AWS
     https://docs.aws.amazon.com/sagemaker/latest/dg/ll_hyperparameters.html
@@ -31,24 +27,38 @@ class AWSLinear(AWSModel):
         self.s3_training_full_csv_path = self.s3_filepath(filetype='ml_data', filename=self.csv_training_full_filename, common=True, uri=True)
         self.s3_validation_full_csv_path = self.s3_filepath(filetype='ml_data', filename=self.csv_validation_full_filename, common=True, uri=True)
 
+    def _get_estimator(self, sm_session):
+        # TODO: hyperparameters must be transformed into a string
+        # TODO: import must be passed from config file!
+        # proposal: boolean to deploy for sklearn models + additional import field if deployed
+        s_import = 'from sklearn.ensemble import RandomForestClassifier'
+        hyperparameters = '{"n_estimators": 1000, "max_depth": 10}'
+
+        return SKLearn(entry_point='src/models/aws/train_sklearn.py',
+                       role=self.infra_sm['sm_role'],
+                       train_instance_count=self.infra_sm['train_instance_count'],
+                       train_instance_type=self.infra_sm['train_instance_type'],
+                       output_path=self.s3_filepath(filetype='model', filename='', uri=True),
+                       sagemaker_session=sm_session, train_max_run=self.infra_sm['maxruntime'],
+                       hyperparameters={'import': s_import,
+                                        'hyperparameters': hyperparameters})
+
+    def _get_transformer_class(self):
+        return sagemaker.transformer.Transformer
+
     def _get_container(self, boto3_session):
         """ Return the URI corresponding to the container of the algorithm """
-        return get_image_uri(boto3_session.region_name, 'linear-learner')
+        return None
 
     def _init_s3_train_files(self):
         """ Initialize the training and validation files (features + label) required for the training step """
         # LinearModel requires CSV training and validation files, including labels, when invoking fit()
         return self._init_s3_train_csv_files()
 
-    def _finalize_hyperparameters(self):
-        self.hyperparameters['feature_dim'] = self.training_x.shape[1]
-        self.hyperparameters['num_classes'] = self.n_classes
-        # binary_classifier, multiclass_classifier, or regressor
-        if 'predictor_type' not in self.hyperparameters:
-            self.hyperparameters['predictor_type'] = 'binary_classifier' if self.n_classes == 2 else 'multiclass_classifier'
-
     def _parse_preds_line(self, preds_line):
         """ Parse the given line in order to return an array of n_classes probabilities """
         # The output for LinearModel for multiclass (3 here) and for each sample is
         # {"predicted_label":1.0,"score":[0.191362738609313,0.516198694705963,0.2924385368824]}
-        return eval(preds_line)['score']
+        # return eval(preds_line)['score']
+        print(preds_line)
+        return None

@@ -44,8 +44,9 @@ class AWSXGBoost(AWSModel):
     def _init_s3_train_files(self):
         """ Initialize the training and validation files (features + label) required for the training step """
         # XGBoost requires libsvm training and validation files when invoking fit()
-        self._prepare_libsvm_data()
+        return self._init_s3_train_libsvm_files()
 
+    def _finalize_hyperparameters(self):
         if self.n_classes <= 2:
             self.hyperparameters['eval_metric'] = 'auc'
             self.hyperparameters['objective'] = 'binary:logistic'
@@ -53,28 +54,9 @@ class AWSXGBoost(AWSModel):
             self.hyperparameters['objective'] = 'multi:softprob'
             self.hyperparameters['num_class'] = self.n_classes
 
-        s3_input_training = sagemaker.s3_input(s3_data=self.s3_training_libsvm_path, content_type='libsvm')
-        s3_input_validation = sagemaker.s3_input(s3_data=self.s3_validation_libsvm_path, content_type='libsvm')
-        return s3_input_training, s3_input_validation
 
     def _parse_preds_line(self, preds_line):
         """ Parse the given line in order to return an array of n_classes probabilities """
         # The output for AWS XGBoost for multiclass is [proba_c1, probac2, probac3,...] for each sample, neither csv, nor python...
         # return list(map(float, preds_line[1:-2].split(',')))
         return eval(preds_line)
-
-    def _prepare_libsvm_data(self):
-        """ Generate the local and S3 libsvm files used for the training """
-        logging.info('Preparing libsvm training data...')
-        if self.clean or not (self.is_s3_file(self.s3_training_file) and self.is_s3_file(self.s3_validation_file)):
-            logging.info('S3 libsvm files do not exist.')
-            if self.clean or not (os.path.isfile(self.local_libsvm_training_file) and os.path.isfile(self.local_libsvm_validation_file)):
-                logging.info('Local libsvm files do not exist.')
-                logging.info('Generating local libsvm files...')
-                dump_svmlight_file(X=self.training_x, y=self.training_y, f=self.local_libsvm_training_file)
-                dump_svmlight_file(X=self.validation_x, y=self.validation_y, f=self.local_libsvm_validation_file)
-            logging.info('Local libsvm files found. Uploading to S3...')
-            upload_file_to_s3(self.local_libsvm_training_file, self.infra_s3['s3_bucket'], self.s3_training_file)
-            upload_file_to_s3(self.local_libsvm_validation_file, self.infra_s3['s3_bucket'], self.s3_validation_file)
-        else:
-            logging.info('S3 libsvm files already exist. Skipping step.')

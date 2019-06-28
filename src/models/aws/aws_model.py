@@ -143,6 +143,22 @@ class AWSModel(Model):
     def _parse_preds_line(self, preds_file):
         raise NotImplementedError('_parse_preds_line method not implemented')
 
+    def _finalize_hyperparameters(self):
+        pass
+
+    def _get_estimator(self, sm_session):
+        estimator = sagemaker.estimator.Estimator(self.container,
+                                                  self.infra_sm['sm_role'],
+                                                  train_instance_count=self.infra_sm['train_instance_count'],
+                                                  train_instance_type=self.infra_sm['train_instance_type'],
+                                                  output_path=self.s3_filepath(filetype='model', filename='', uri=True),
+                                                  sagemaker_session=sm_session, train_max_run=self.infra_sm['maxruntime'])
+        estimator.set_hyperparameters(**self.hyperparameters)
+        return estimator
+
+    def _get_transformer_class(self):
+        return sagemaker.transformer.Transformer
+
     def local_filepath(self, filename, common=False):
         """
         If common to all AWS jobs on this dataset, the returned filepath will be <jobs>/<data>/<config_id>/file.ext
@@ -209,22 +225,25 @@ class AWSModel(Model):
     def train(self):
         logging.info('======== TRAINING ========')
         logging.info('Preparing training data...')
+        print(self.aws_model_id)
         if self.training is None or self.validation is None:
-            self.load_training_data()
+            self._load_training_data()
 
         sm_session = sagemaker.Session()
-        xgb_estimator = sagemaker.estimator.Estimator(self.container,
-                                                      self.infra_sm['sm_role'],
-                                                      train_instance_count=self.infra_sm['train_instance_count'],
-                                                      train_instance_type=self.infra_sm['train_instance_type'],
-                                                      output_path=self.s3_filepath(filetype='model', filename='', uri=True),
-                                                      sagemaker_session=sm_session, train_max_run=self.infra_sm['maxruntime'])
+        estimator = self._get_estimator(sm_session)
 
         s3_input_training, s3_input_validation = self._init_s3_train_files()
+        self._finalize_hyperparameters()
 
-        xgb_estimator.set_hyperparameters(**self.hyperparameters)
-        xgb_estimator.fit({'train': s3_input_training, 'validation': s3_input_validation})
-        self.model = xgb_estimator.create_model(name=self.aws_model_id)
+        estimator.fit({'train': s3_input_training, 'validation': s3_input_validation})
+        # TODO: there should be no try except, only the call to create_model.
+        # TODO: for some reason, the model is saved at a weird place in S3 (not in the models folder!)
+        # However, we don't know how to give a name to a sklearn model!
+        print(self.aws_model_id)
+        try:
+            self.model = estimator.create_model(name=self.aws_model_id)
+        except:
+            self.model = estimator
         # TODO: check if model was saved correctly (i.e. if training didn't fail)
         # TODO: Force model saving. Currently, the model may not saved after the training, it seems AWS
         #       may persist it only when we perform the batch transform job in predict
@@ -255,7 +274,7 @@ class AWSModel(Model):
         # if no model: try to launch directly from an existing model stored in AWS
         else:
             logging.info('No model reference in memory: launching Batch Transform job from model ID {}...'.format(self.aws_model_id))
-            transformer = sagemaker.transformer.Transformer(
+            transformer = self._get_transformer_class()(
                 model_name=self.aws_model_id,
                 base_transform_job_name='Batch-Transform',
                 instance_count=1,
@@ -276,8 +295,11 @@ class AWSModel(Model):
         logging.info('Preparing prediction data...')
 
         if self.training is None or self.validation is None:
-            self.load_training_data()
+            self._load_training_data()
 
+        # TODO: for sklearn, we get the error "Can't cast from structure to non-structure, except if the structure only has a single field."
+        # This may be fixed by using .values(), that way we don't export headers (though target should be first col I guess)
+        # and thus sklearn can easily convert a structured dataframe into a non structured np array
         self.prepare_csv_file(self.training, self.csv_training_filename)
         self.prepare_csv_file(self.validation, self.csv_validation_filename)
 
@@ -307,7 +329,7 @@ class AWSModel(Model):
         logging.info('Preparing evaluation data...')
         # To compute performance metrics, the true labels are required for all datasets in order to compare with predictions
         if self.training is None or self.validation is None:
-            self.load_training_data()
+            self._load_training_data()
         if self.testing is None:
             self.load_testing_data()
 
@@ -337,7 +359,7 @@ class AWSModel(Model):
         logging.info('validation_y_pred shape: {}'.format(self.validation_y_pred.shape))
         logging.info('testing_y_pred shape: {}'.format(self.testing_y_pred.shape))
 
-    def load_training_data(self):
+    def _load_training_data(self):
         logging.info('Loading training/validation datasets...')
         postfixed_dataset_name = self.dataset_name + '_preprocessed'
         training, validation, _, _ = load_preproc_dataset(postfixed_dataset_name, self.data_dir,
@@ -408,3 +430,58 @@ class AWSModel(Model):
         self.boto3_sm.delete_endpoint(EndpointName=endpoint_name(self.aws_model_id))
 
         logging.info('Endpoind deletion done')
+
+    def _init_s3_train_csv_files(self):
+        """ Initialize the training and validation files (features + label) required for the training step """
+        # LinearModel and sklearn requires CSV training and validation files, including labels, when invoking fit()
+        logging.info('Preparing csv training data...')
+        self._prepare_csv_full_file(self.training, self.csv_training_full_filename)
+        self._prepare_csv_full_file(self.validation, self.csv_validation_full_filename)
+
+        s3_input_training = sagemaker.s3_input(s3_data=self.s3_training_full_csv_path, content_type='text/csv')
+        s3_input_validation = sagemaker.s3_input(s3_data=self.s3_validation_full_csv_path, content_type='text/csv')
+        return s3_input_training, s3_input_validation
+
+    def _prepare_csv_full_file(self, dataset: pd.DataFrame, filename) -> str:
+        """ Generate the local and S3 csv files used for the training
+        Similar to prepare_csv_file, but also exports the label in the first column, instead of excluding it """
+        logging.info('Preparing csv full file: {}'.format(filename))
+        s3_csv_file = self.s3_filepath(filetype='ml_data', filename=filename, common=True)
+
+        if self.clean or not self.is_s3_file(s3_csv_file):
+            logging.info('S3 csv file does not exist')
+            local_csv_file = self.local_filepath(filename, common=True)
+            if self.clean or not os.path.isfile(local_csv_file):
+                logging.info('Local csv file does not exist. Computing...')
+                dataset[[self.target] + self.features].to_csv(local_csv_file, header=False, index=False)
+            logging.info('Local csv file found. Uploading to S3...')
+            upload_file_to_s3(local_csv_file, self.infra_s3['s3_bucket'], s3_csv_file)
+        else:
+            logging.info('S3 csv file already exists. Skipping step.')
+
+        logging.info('S3 csv file path: {}'.format(s3_csv_file))
+
+    def _init_s3_train_libsvm_files(self):
+        """ Initialize the training and validation files (features + label) required for the training step """
+        # XGBoost requires libsvm training and validation files when invoking fit()
+        self._prepare_libsvm_data()
+
+        s3_input_training = sagemaker.s3_input(s3_data=self.s3_training_libsvm_path, content_type='libsvm')
+        s3_input_validation = sagemaker.s3_input(s3_data=self.s3_validation_libsvm_path, content_type='libsvm')
+        return s3_input_training, s3_input_validation
+
+    def _prepare_libsvm_data(self):
+        """ Generate the local and S3 libsvm files used for the training """
+        logging.info('Preparing libsvm training data...')
+        if self.clean or not (self.is_s3_file(self.s3_training_file) and self.is_s3_file(self.s3_validation_file)):
+            logging.info('S3 libsvm files do not exist.')
+            if self.clean or not (os.path.isfile(self.local_libsvm_training_file) and os.path.isfile(self.local_libsvm_validation_file)):
+                logging.info('Local libsvm files do not exist.')
+                logging.info('Generating local libsvm files...')
+                dump_svmlight_file(X=self.training_x, y=self.training_y, f=self.local_libsvm_training_file)
+                dump_svmlight_file(X=self.validation_x, y=self.validation_y, f=self.local_libsvm_validation_file)
+            logging.info('Local libsvm files found. Uploading to S3...')
+            upload_file_to_s3(self.local_libsvm_training_file, self.infra_s3['s3_bucket'], self.s3_training_file)
+            upload_file_to_s3(self.local_libsvm_validation_file, self.infra_s3['s3_bucket'], self.s3_validation_file)
+        else:
+            logging.info('S3 libsvm files already exist. Skipping step.')
